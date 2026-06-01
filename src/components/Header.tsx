@@ -1,8 +1,8 @@
-import { Bell, Search, RefreshCw, Cpu } from "lucide-react";
+﻿import { Bell, Search, RefreshCw, Cpu } from "lucide-react";
 import type { PageType } from "./Sidebar";
 
 const pageTitles: Record<PageType, { title: string; subtitle: string }> = {
-  dashboard: { title: "工作台", subtitle: "医院运营总驾驶舱" },
+  dashboard: { title: "工作台", subtitle: "医院运营总览" },
   "push-tasks": { title: "推送任务中心", subtitle: "推送任务调度与执行中心" },
 
   patients: { title: "患者中心", subtitle: "患者全量信息管理中心" },
@@ -48,21 +48,21 @@ export default function Header({ currentPage }: HeaderProps) {
     <header
       className="flex items-center justify-between px-6 py-3 flex-shrink-0"
       style={{
-        background: "rgba(15, 23, 42, 0.95)",
-        borderBottom: "1px solid rgba(71, 85, 105, 0.3)",
+        background: "rgba(255, 255, 255, 0.95)",
+        borderBottom: "1px solid var(--medical-border)",
         height: "64px",
       }}
     >
       <div className="flex items-center gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="text-lg font-bold text-white">{title}</h1>
+            <h1 className="text-lg font-bold text-sky-900">{title}</h1>
             <span className="ai-badge flex items-center gap-1">
               <Cpu size={9} />
               AI 驱动
             </span>
           </div>
-          <p className="text-xs text-slate-500">{subtitle}</p>
+          <p className="text-xs text-sky-600/70">{subtitle}</p>
         </div>
       </div>
 
@@ -70,7 +70,7 @@ export default function Header({ currentPage }: HeaderProps) {
         <div className="relative">
           <Search
             size={14}
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500"
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-sky-400"
           />
           <input
             type="text"
@@ -81,21 +81,21 @@ export default function Header({ currentPage }: HeaderProps) {
         </div>
 
         <button
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs text-slate-400"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs text-sky-600"
           style={{
-            background: "rgba(71, 85, 105, 0.2)",
-            border: "1px solid rgba(71, 85, 105, 0.3)",
+            background: "color-mix(in srgb, var(--medical-bg-soft) 80%, transparent)",
+            border: "1px solid var(--medical-border)",
           }}
         >
           <RefreshCw size={13} />
-          <span className="text-slate-500">{timeStr}</span>
+          <span className="text-sky-600/80">{timeStr}</span>
         </button>
 
         <button
-          className="relative w-9 h-9 rounded-lg flex items-center justify-center text-slate-400"
+          className="relative w-9 h-9 rounded-lg flex items-center justify-center text-sky-600"
           style={{
-            background: "rgba(71, 85, 105, 0.2)",
-            border: "1px solid rgba(71, 85, 105, 0.3)",
+            background: "color-mix(in srgb, var(--medical-bg-soft) 80%, transparent)",
+            border: "1px solid var(--medical-border)",
           }}
         >
           <Bell size={16} />

@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import {
   Zap,
   FileText,
@@ -87,20 +87,20 @@ const statusStyle: Record<
   { color: string; bg: string; label: string; icon: any }
 > = {
   approved: {
-    color: "#10b981",
-    bg: "rgba(16,185,129,0.1)",
+    color: "var(--medical-success)",
+    bg: "var(--medical-success-bg)",
     label: "已审核",
     icon: CheckCircle,
   },
   pending: {
-    color: "#f59e0b",
-    bg: "rgba(245,158,11,0.1)",
+    color: "var(--medical-warning)",
+    bg: "var(--medical-warning-bg)",
     label: "待审核",
     icon: Clock,
   },
   rejected: {
-    color: "#ef4444",
-    bg: "rgba(239,68,68,0.1)",
+    color: "var(--medical-danger)",
+    bg: "var(--medical-danger-bg)",
     label: "已拒绝",
     icon: XCircle,
   },
@@ -122,6 +122,25 @@ export default function AIContent() {
   const [generating, setGenerating] = useState(false);
   const [generatedContent, setGeneratedContent] = useState("");
   const [selectedTemplate, setSelectedTemplate] = useState("");
+  const tabActiveStyle = {
+    background: "var(--medical-focus-ring)",
+    color: "var(--medical-text)",
+    border: "1px solid var(--medical-border-strong)",
+  };
+  const tabInactiveStyle = {
+    background: "color-mix(in srgb, var(--medical-bg-soft) 75%, white)",
+    color: "var(--medical-text-muted)",
+    border: "1px solid var(--medical-border)",
+  };
+  const contentCardHighlightStyle = {
+    border: "1px solid var(--medical-border-strong)",
+  };
+  const statValueColors = [
+    "var(--medical-button)",
+    "var(--medical-warning)",
+    "var(--medical-success)",
+    "var(--medical-button-dark)",
+  ];
 
   const handleGenerate = () => {
     setGenerating(true);
@@ -169,14 +188,7 @@ export default function AIContent() {
             key={tab}
             onClick={() => setActiveTab(tab)}
             className="px-5 py-2 rounded-lg text-sm font-medium transition-all"
-            style={{
-              background:
-                activeTab === tab
-                  ? "rgba(99,102,241,0.2)"
-                  : "rgba(71,85,105,0.2)",
-              color: activeTab === tab ? "#a5b4fc" : "#64748b",
-              border: `1px solid ${activeTab === tab ? "rgba(99,102,241,0.4)" : "rgba(71,85,105,0.3)"}`,
-            }}
+            style={activeTab === tab ? tabActiveStyle : tabInactiveStyle}
           >
             {tab === "generate" ? "🤖 AI生成内容" : "📚 内容知识库"}
           </button>
@@ -221,7 +233,10 @@ export default function AIContent() {
                   },
                 ].map((item) => (
                   <div key={item.label}>
-                    <label className="text-xs text-slate-400 mb-1 block">
+                    <label
+                      className="text-xs mb-1 block"
+                      style={{ color: "var(--medical-text-muted)" }}
+                    >
                       {item.label}
                     </label>
                     <select
@@ -237,7 +252,10 @@ export default function AIContent() {
               </div>
 
               <div className="mb-4">
-                <label className="text-xs text-slate-400 mb-1 block">
+                <label
+                  className="text-xs mb-1 block"
+                  style={{ color: "var(--medical-text-muted)" }}
+                >
                   生成提示词（Prompt）
                 </label>
                 <textarea
@@ -251,8 +269,11 @@ export default function AIContent() {
 
               {/* Template Selector */}
               <div className="mb-4">
-                <label className="text-xs text-slate-400 mb-2 block">
-                  选择Prompt模板
+                <label
+                  className="text-xs mb-2 block"
+                  style={{ color: "var(--medical-text-muted)" }}
+                >
+                  选择系统模板
                 </label>
                 <div className="flex flex-wrap gap-2">
                   {templates.map((t) => (
@@ -260,15 +281,11 @@ export default function AIContent() {
                       key={t.name}
                       onClick={() => setSelectedTemplate(t.name)}
                       className="text-xs px-3 py-1.5 rounded-lg transition-all"
-                      style={{
-                        background:
-                          selectedTemplate === t.name
-                            ? "rgba(99,102,241,0.2)"
-                            : "rgba(71,85,105,0.15)",
-                        color:
-                          selectedTemplate === t.name ? "#a5b4fc" : "#64748b",
-                        border: `1px solid ${selectedTemplate === t.name ? "rgba(99,102,241,0.4)" : "rgba(71,85,105,0.3)"}`,
-                      }}
+                      style={
+                        selectedTemplate === t.name
+                          ? tabActiveStyle
+                          : tabInactiveStyle
+                      }
                     >
                       {t.name}
                     </button>
@@ -283,23 +300,20 @@ export default function AIContent() {
                 style={{ opacity: generating ? 0.7 : 1 }}
               >
                 <Zap size={16} />
-                {generating ? "AI生成中..." : "🚀 一键生成内容"}
+                {generating ? "AI生成中..." : "一键生成内容"}
               </button>
             </div>
 
             {/* Generated Content */}
             {(generatedContent || generating) && (
-              <div
-                className="glass-card p-5"
-                style={{ border: "1px solid rgba(99,102,241,0.3)" }}
-              >
+              <div className="glass-card p-5" style={contentCardHighlightStyle}>
                 <div className="section-header">
-                  <Edit3 size={16} className="text-indigo-400" />
+                  <Edit3 size={16} style={{ color: "var(--medical-button)" }} />
                   <span className="section-title">生成内容</span>
                   {generating && (
                     <div
                       className="w-2 h-2 rounded-full pulse-dot"
-                      style={{ background: "#6366f1" }}
+                      style={{ background: "var(--medical-button)" }}
                     />
                   )}
                   <div className="ml-auto flex gap-2">
@@ -314,9 +328,12 @@ export default function AIContent() {
                   </div>
                 </div>
                 <div
-                  className="p-4 rounded-xl text-sm text-slate-300 leading-relaxed whitespace-pre-line"
+                  className="p-4 rounded-xl text-sm leading-relaxed whitespace-pre-line"
                   style={{
-                    background: "rgba(15,23,42,0.6)",
+                    color: "var(--medical-text)",
+                    background:
+                      "color-mix(in srgb, var(--medical-bg-soft) 78%, white)",
+                    border: "1px solid var(--medical-border)",
                     minHeight: 200,
                     fontFamily: "monospace",
                     fontSize: 13,
@@ -324,7 +341,10 @@ export default function AIContent() {
                 >
                   {generatedContent}
                   {generating && (
-                    <span className="inline-block w-1 h-4 bg-indigo-400 ml-0.5 animate-pulse" />
+                    <span
+                      className="inline-block w-1 h-4 ml-0.5 animate-pulse"
+                      style={{ background: "var(--medical-button)" }}
+                    />
                   )}
                 </div>
               </div>
@@ -335,8 +355,11 @@ export default function AIContent() {
           <div className="space-y-4">
             <div className="glass-card p-5">
               <div className="section-header">
-                <BookOpen size={16} className="text-cyan-400" />
-                <span className="section-title">Prompt模板库</span>
+                <BookOpen
+                  size={16}
+                  style={{ color: "var(--medical-button-dark)" }}
+                />
+                <span className="section-title">系统模板库</span>
               </div>
               <div className="space-y-3">
                 {templates.map((t, i) => (
@@ -344,33 +367,49 @@ export default function AIContent() {
                     key={i}
                     className="p-3 rounded-xl cursor-pointer transition-all"
                     style={{
-                      background: "rgba(15,23,42,0.6)",
-                      border: "1px solid rgba(71,85,105,0.2)",
+                      background:
+                        "color-mix(in srgb, var(--medical-bg-soft) 78%, white)",
+                      border: "1px solid var(--medical-border)",
                     }}
                     onMouseEnter={(e) =>
                       (e.currentTarget.style.borderColor =
-                        "rgba(99,102,241,0.4)")
+                        "var(--medical-border-strong)")
                     }
                     onMouseLeave={(e) =>
                       (e.currentTarget.style.borderColor =
-                        "rgba(71,85,105,0.2)")
+                        "var(--medical-border)")
                     }
                   >
                     <div className="flex items-center justify-between">
-                      <span className="text-sm font-medium text-slate-200">
+                      <span
+                        className="text-sm font-medium"
+                        style={{ color: "var(--medical-text)" }}
+                      >
                         {t.name}
                       </span>
-                      <Star size={12} className="text-yellow-400" />
+                      <Star
+                        size={12}
+                        style={{ color: "var(--medical-button-dark)" }}
+                      />
                     </div>
                     <div className="flex items-center gap-3 mt-1">
-                      <span className="text-xs text-slate-500">
+                      <span
+                        className="text-xs"
+                        style={{ color: "var(--medical-text-muted)" }}
+                      >
                         场景：{t.scene}
                       </span>
-                      <span className="text-xs text-slate-500">
+                      <span
+                        className="text-xs"
+                        style={{ color: "var(--medical-text-muted)" }}
+                      >
                         用了{t.useCount}次
                       </span>
                     </div>
-                    <div className="text-xs text-slate-600 mt-0.5">
+                    <div
+                      className="text-xs mt-0.5"
+                      style={{ color: "var(--medical-text-muted)" }}
+                    >
                       最近：{t.lastUsed}
                     </div>
                   </div>
@@ -380,25 +419,33 @@ export default function AIContent() {
 
             <div className="glass-card p-5">
               <div className="section-header">
-                <FileText size={16} className="text-emerald-400" />
+                <FileText
+                  size={16}
+                  style={{ color: "var(--medical-button-dark)" }}
+                />
                 <span className="section-title">内容统计</span>
               </div>
               <div className="space-y-3">
                 {[
-                  { label: "今日生成", value: "47 条", color: "#6366f1" },
-                  { label: "待审核", value: "23 条", color: "#f59e0b" },
-                  { label: "已发布", value: "312 条", color: "#10b981" },
-                  { label: "平均阅读率", value: "68.3%", color: "#0891b2" },
-                ].map((item) => (
+                  { label: "今日生成", value: "47 条" },
+                  { label: "待审核", value: "23 条" },
+                  { label: "已发布", value: "312 条" },
+                  { label: "平均阅读率", value: "68.3%" },
+                ].map((item, index) => (
                   <div
                     key={item.label}
                     className="flex items-center justify-between py-2"
-                    style={{ borderBottom: "1px solid rgba(71,85,105,0.15)" }}
+                    style={{ borderBottom: "1px solid var(--medical-border)" }}
                   >
-                    <span className="text-xs text-slate-400">{item.label}</span>
+                    <span
+                      className="text-xs"
+                      style={{ color: "var(--medical-text-muted)" }}
+                    >
+                      {item.label}
+                    </span>
                     <span
                       className="text-sm font-bold"
-                      style={{ color: item.color }}
+                      style={{ color: statValueColors[index] }}
                     >
                       {item.value}
                     </span>
@@ -413,22 +460,20 @@ export default function AIContent() {
         <div className="glass-card overflow-hidden">
           <div
             className="p-4 flex items-center gap-3"
-            style={{ borderBottom: "1px solid rgba(71,85,105,0.2)" }}
+            style={{ borderBottom: "1px solid var(--medical-border)" }}
           >
-            <span className="text-sm font-medium text-slate-300">内容列表</span>
+            <span
+              className="text-sm font-medium"
+              style={{ color: "var(--medical-text)" }}
+            >
+              内容列表
+            </span>
             <div className="ml-auto flex gap-2">
               {["全部", "已审核", "待审核", "已拒绝"].map((f) => (
                 <button
                   key={f}
                   className="text-xs px-2.5 py-1 rounded-lg"
-                  style={{
-                    background:
-                      f === "全部"
-                        ? "rgba(99,102,241,0.2)"
-                        : "rgba(71,85,105,0.15)",
-                    color: f === "全部" ? "#a5b4fc" : "#64748b",
-                    border: `1px solid ${f === "全部" ? "rgba(99,102,241,0.3)" : "rgba(71,85,105,0.2)"}`,
-                  }}
+                  style={f === "全部" ? tabActiveStyle : tabInactiveStyle}
                 >
                   {f}
                 </button>
@@ -437,7 +482,7 @@ export default function AIContent() {
           </div>
           <table className="w-full">
             <thead>
-              <tr style={{ borderBottom: "1px solid rgba(71,85,105,0.2)" }}>
+              <tr style={{ borderBottom: "1px solid var(--medical-border)" }}>
                 {[
                   "内容标题",
                   "类型",
@@ -449,7 +494,8 @@ export default function AIContent() {
                 ].map((h) => (
                   <th
                     key={h}
-                    className="text-xs text-slate-500 font-medium text-left px-4 py-3"
+                    className="text-xs font-medium text-left px-4 py-3"
+                    style={{ color: "var(--medical-text-muted)" }}
                   >
                     {h}
                   </th>
@@ -463,14 +509,17 @@ export default function AIContent() {
                   <tr
                     key={item.id}
                     className="table-row-hover"
-                    style={{ borderBottom: "1px solid rgba(71,85,105,0.1)" }}
+                    style={{ borderBottom: "1px solid var(--medical-border)" }}
                   >
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-2">
                         {item.aiGenerated && (
                           <span className="ai-badge text-xs">AI</span>
                         )}
-                        <span className="text-sm text-slate-200 max-w-xs truncate">
+                        <span
+                          className="text-sm max-w-xs truncate"
+                          style={{ color: "var(--medical-text)" }}
+                        >
                           {item.title}
                         </span>
                       </div>
@@ -492,7 +541,10 @@ export default function AIContent() {
                         {item.type}
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-xs text-slate-400">
+                    <td
+                      className="px-4 py-3 text-xs"
+                      style={{ color: "var(--medical-text-muted)" }}
+                    >
                       {item.dept}
                     </td>
                     <td className="px-4 py-3">
@@ -504,18 +556,30 @@ export default function AIContent() {
                         <span className="text-xs">{s.label}</span>
                       </div>
                     </td>
-                    <td className="px-4 py-3 text-xs text-slate-400">
+                    <td
+                      className="px-4 py-3 text-xs"
+                      style={{ color: "var(--medical-text-muted)" }}
+                    >
                       {item.reads.toLocaleString()}
                     </td>
-                    <td className="px-4 py-3 text-xs text-slate-500">
+                    <td
+                      className="px-4 py-3 text-xs"
+                      style={{ color: "var(--medical-text-muted)" }}
+                    >
                       {item.createdAt}
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex gap-2">
-                        <button className="text-xs text-indigo-400 hover:text-indigo-300">
+                        <button
+                          className="text-xs"
+                          style={{ color: "var(--medical-button-dark)" }}
+                        >
                           编辑
                         </button>
-                        <button className="text-xs text-slate-400 hover:text-slate-300">
+                        <button
+                          className="text-xs"
+                          style={{ color: "var(--medical-text-muted)" }}
+                        >
                           复制
                         </button>
                       </div>

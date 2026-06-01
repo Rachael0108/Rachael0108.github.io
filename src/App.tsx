@@ -1,4 +1,4 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import Sidebar, { type PageType } from './components/Sidebar';
 import Header from './components/Header';
 import Dashboard from './pages/Dashboard';
@@ -35,7 +35,7 @@ export default function App() {
   const PageComponent = pageComponents[currentPage];
 
   return (
-    <div className="flex h-screen overflow-hidden" style={{ background: '#0f172a' }}>
+    <div className="flex h-screen overflow-hidden" style={{ background: 'var(--medical-bg)' }}>
       {/* Sidebar */}
       <Sidebar currentPage={currentPage} onPageChange={setCurrentPage} />
 
@@ -43,7 +43,7 @@ export default function App() {
       <div className="flex flex-col flex-1 min-w-0 overflow-hidden">
         <Header currentPage={currentPage} />
         
-        <main className="flex-1 overflow-y-auto" style={{ background: 'linear-gradient(180deg, #0f172a 0%, #0d1929 100%)' }}>
+        <main className="flex-1 overflow-y-auto" style={{ background: 'linear-gradient(180deg, var(--medical-bg) 0%, var(--medical-bg-soft) 100%)' }}>
           <PageComponent />
         </main>
       </div>

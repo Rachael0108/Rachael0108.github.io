@@ -1,6 +1,61 @@
-@import "tailwindcss";
+﻿@import "tailwindcss";
 
 @layer base {
+  :root {
+    --medical-blue-50: #f0f9ff;
+    --medical-blue-100: #e0f2fe;
+    --medical-blue-200: #bae6fd;
+    --medical-blue-300: #7dd3fc;
+    --medical-blue-400: #38bdf8;
+    --medical-blue-500: #0ea5e9;
+    --medical-blue-600: #0284c7;
+    --medical-blue-700: #0369a1;
+    --medical-blue-800: #075985;
+    --medical-blue-900: #0c4a6e;
+
+    --medical-bg: #f7fcff;
+    --medical-bg-soft: #eaf6ff;
+    --medical-bg-card: rgba(255, 255, 255, 0.92);
+    --medical-text: var(--medical-blue-900);
+    --medical-text-muted: var(--medical-blue-700);
+    --medical-text-inverse: #ffffff;
+    --medical-border: rgba(14, 165, 233, 0.24);
+    --medical-border-strong: rgba(14, 165, 233, 0.45);
+    --medical-button: #0284c7;
+    --medical-button-dark: #0369a1;
+    --medical-button-hover: #0ea5e9;
+    --medical-sidebar-start: var(--medical-blue-600);
+    --medical-sidebar-end: var(--medical-blue-700);
+    --medical-focus-ring: rgba(2, 132, 199, 0.1);
+    --medical-shadow: rgba(2, 132, 199, 0.1);
+    --medical-success: #22c55e;
+    --medical-success-strong: #4ade80;
+    --medical-success-bg: rgba(34, 197, 94, 0.15);
+
+    --medical-warning: #facc15;
+    --medical-warning-strong: #fde047;
+    --medical-warning-bg: rgba(250, 204, 21, 0.15);
+
+    --medical-danger: #f87171;
+    --medical-danger-strong: #fb7185;
+    --medical-danger-bg: rgba(248, 113, 113, 0.15);
+
+    --color-sky-50: var(--medical-blue-50);
+    --color-sky-100: var(--medical-blue-100);
+    --color-sky-200: var(--medical-blue-200);
+    --color-sky-300: var(--medical-blue-300);
+    --color-sky-400: var(--medical-blue-400);
+    --color-sky-500: var(--medical-blue-500);
+    --color-sky-600: var(--medical-blue-600);
+    --color-sky-700: var(--medical-blue-700);
+    --color-sky-800: var(--medical-blue-800);
+    --color-sky-900: var(--medical-blue-900);
+    --color-cyan-400: var(--medical-blue-400);
+    --color-indigo-300: var(--medical-blue-300);
+    --color-indigo-400: var(--medical-blue-500);
+    --color-purple-400: var(--medical-blue-600);
+  }
+
   * {
     box-sizing: border-box;
   }
@@ -9,8 +64,8 @@
     font-family:
       -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
       "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
-    background-color: #0f172a;
-    color: #e2e8f0;
+    background-color: var(--medical-bg);
+    color: var(--medical-text);
   }
 
   ::-webkit-scrollbar {
@@ -19,77 +74,98 @@
   }
 
   ::-webkit-scrollbar-track {
-    background: #1e293b;
+    background: transparent;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #334155;
+    background: var(--medical-blue-300);
     border-radius: 3px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: #475569;
+    background: var(--medical-blue-400);
   }
 }
 
 @layer utilities {
   .glass-card {
-    background: rgba(30, 41, 59, 0.8);
+    background: var(--medical-bg-card);
     backdrop-filter: blur(12px);
-    border: 1px solid rgba(71, 85, 105, 0.4);
+    border: 1px solid var(--medical-border);
     border-radius: 12px;
+    box-shadow: 0 1px 3px var(--medical-shadow);
   }
 
   .gradient-blue {
-    background: linear-gradient(135deg, #1d4ed8, #0891b2);
+    background: linear-gradient(
+      135deg,
+      var(--medical-button-dark),
+      var(--medical-button)
+    );
   }
 
   .gradient-purple {
-    background: linear-gradient(135deg, #7c3aed, #4f46e5);
+    background: linear-gradient(
+      135deg,
+      var(--medical-blue-400),
+      var(--medical-button-dark)
+    );
   }
 
   .gradient-green {
-    background: linear-gradient(135deg, #059669, #0d9488);
+    background: linear-gradient(
+      135deg,
+      var(--medical-success-strong),
+      var(--medical-success)
+    );
   }
 
   .gradient-orange {
-    background: linear-gradient(135deg, #d97706, #ea580c);
+    background: linear-gradient(
+      135deg,
+      var(--medical-warning-strong),
+      var(--medical-warning)
+    );
   }
 
   .gradient-red {
-    background: linear-gradient(135deg, #dc2626, #9f1239);
+    background: linear-gradient(
+      135deg,
+      var(--medical-danger-strong),
+      var(--medical-danger)
+    );
   }
 
   .ai-glow {
-    box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+    box-shadow: 0 0 20px var(--medical-border-strong);
   }
 
   .risk-high {
-    color: #f87171;
-    background: rgba(239, 68, 68, 0.1);
+    color: var(--medical-danger);
+    background: var(--medical-danger-bg);
     border: 1px solid rgba(239, 68, 68, 0.3);
   }
 
   .risk-medium {
-    color: #fbbf24;
-    background: rgba(251, 191, 36, 0.1);
-    border: 1px solid rgba(251, 191, 36, 0.3);
+    color: var(--medical-warning);
+    background: var(--medical-warning-bg);
+    border: 1px solid rgba(245, 158, 11, 0.3);
   }
 
   .risk-low {
-    color: #34d399;
-    background: rgba(52, 211, 153, 0.1);
-    border: 1px solid rgba(52, 211, 153, 0.3);
+    color: var(--medical-success);
+    background: var(--medical-success-bg);
+    border: 1px solid rgba(16, 185, 129, 0.3);
   }
 
   .nav-item-active {
     background: linear-gradient(
       90deg,
-      rgba(99, 102, 241, 0.3),
-      rgba(99, 102, 241, 0.05)
+      rgba(255, 255, 255, 0.25),
+      rgba(255, 255, 255, 0.08)
     );
-    border-left: 3px solid #6366f1;
-    color: #a5b4fc;
+    border-left: 3px solid var(--medical-bg-soft);
+    color: var(--medical-text-inverse);
   }
 
   .nav-item {
@@ -97,82 +173,82 @@
   }
 
   .nav-item:hover {
-    background: rgba(99, 102, 241, 0.1);
-    color: #c7d2fe;
+    background: rgba(255, 255, 255, 0.12);
+    color: var(--medical-bg-soft);
   }
 
   .metric-card {
     background: linear-gradient(
       135deg,
-      rgba(30, 41, 59, 0.9),
-      rgba(15, 23, 42, 0.9)
+      rgba(255, 255, 255, 0.98),
+      rgba(240, 249, 255, 0.98)
     );
-    border: 1px solid rgba(71, 85, 105, 0.5);
+    border: 1px solid var(--medical-border);
     border-radius: 12px;
     transition: all 0.3s ease;
   }
 
   .metric-card:hover {
-    border-color: rgba(99, 102, 241, 0.5);
+    border-color: var(--medical-border-strong);
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 8px 25px var(--medical-shadow);
   }
 
   .status-dot-green {
-    background: #10b981;
-    box-shadow: 0 0 6px #10b981;
+    background: var(--medical-success-strong);
+    box-shadow: 0 0 6px rgba(5, 150, 105, 0.7);
   }
 
   .status-dot-red {
-    background: #ef4444;
-    box-shadow: 0 0 6px #ef4444;
+    background: var(--medical-danger-strong);
+    box-shadow: 0 0 6px rgba(220, 38, 38, 0.7);
   }
 
   .status-dot-yellow {
-    background: #f59e0b;
-    box-shadow: 0 0 6px #f59e0b;
+    background: var(--medical-warning-strong);
+    box-shadow: 0 0 6px rgba(217, 119, 6, 0.7);
   }
 
   .tag-blue {
-    background: rgba(59, 130, 246, 0.15);
-    color: #93c5fd;
-    border: 1px solid rgba(59, 130, 246, 0.3);
+    background: var(--medical-focus-ring);
+    color: var(--medical-text-muted);
+    border: 1px solid var(--medical-border);
   }
 
   .tag-purple {
-    background: rgba(139, 92, 246, 0.15);
-    color: #c4b5fd;
-    border: 1px solid rgba(139, 92, 246, 0.3);
+    background: rgba(14, 165, 233, 0.12);
+    color: var(--medical-blue-700);
+    border: 1px solid rgba(14, 165, 233, 0.28);
   }
 
   .tag-green {
-    background: rgba(16, 185, 129, 0.15);
-    color: #6ee7b7;
+    background: var(--medical-success-bg);
+    color: var(--medical-success);
     border: 1px solid rgba(16, 185, 129, 0.3);
   }
 
   .tag-red {
-    background: rgba(239, 68, 68, 0.15);
-    color: #fca5a5;
+    background: var(--medical-danger-bg);
+    color: var(--medical-danger);
     border: 1px solid rgba(239, 68, 68, 0.3);
   }
 
   .tag-yellow {
-    background: rgba(245, 158, 11, 0.15);
-    color: #fcd34d;
+    background: var(--medical-warning-bg);
+    color: var(--medical-warning);
     border: 1px solid rgba(245, 158, 11, 0.3);
   }
 
   .tag-gray {
-    background: rgba(100, 116, 139, 0.15);
-    color: #94a3b8;
-    border: 1px solid rgba(100, 116, 139, 0.3);
+    background: rgba(100, 116, 139, 0.1);
+    color: #475569;
+    border: 1px solid rgba(100, 116, 139, 0.25);
   }
 
   .progress-bar {
     height: 6px;
     border-radius: 3px;
-    background: rgba(71, 85, 105, 0.5);
+    background: var(--medical-bg-soft);
     overflow: hidden;
   }
 
@@ -183,11 +259,15 @@
   }
 
   .table-row-hover:hover {
-    background: rgba(99, 102, 241, 0.05);
+    background: var(--medical-focus-ring);
   }
 
   .btn-primary {
-    background: linear-gradient(135deg, #6366f1, #4f46e5);
+    background: linear-gradient(
+      135deg,
+      var(--medical-button),
+      var(--medical-button-dark)
+    );
     color: white;
     border: none;
     border-radius: 8px;
@@ -198,14 +278,18 @@
   }
 
   .btn-primary:hover {
-    background: linear-gradient(135deg, #818cf8, #6366f1);
-    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+    background: linear-gradient(
+      135deg,
+      var(--medical-button-hover),
+      var(--medical-button)
+    );
+    box-shadow: 0 4px 15px var(--medical-border-strong);
   }
 
   .btn-secondary {
-    background: rgba(71, 85, 105, 0.3);
-    color: #94a3b8;
-    border: 1px solid rgba(71, 85, 105, 0.5);
+    background: color-mix(in srgb, var(--medical-bg-soft) 88%, #ffffff);
+    color: var(--medical-text-muted);
+    border: 1px solid var(--medical-border);
     border-radius: 8px;
     padding: 8px 16px;
     font-size: 14px;
@@ -214,15 +298,15 @@
   }
 
   .btn-secondary:hover {
-    background: rgba(71, 85, 105, 0.5);
-    color: #e2e8f0;
+    background: color-mix(in srgb, var(--medical-bg-soft) 92%, #ffffff);
+    color: var(--medical-text);
   }
 
   .input-field {
-    background: rgba(15, 23, 42, 0.8);
-    border: 1px solid rgba(71, 85, 105, 0.5);
+    background: #ffffff;
+    border: 1px solid var(--medical-border);
     border-radius: 8px;
-    color: #e2e8f0;
+    color: var(--medical-text);
     font-size: 14px;
     outline: none;
     transition: all 0.2s ease;
@@ -230,12 +314,12 @@
   }
 
   .input-field:focus {
-    border-color: #6366f1;
-    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+    border-color: var(--medical-button);
+    box-shadow: 0 0 0 3px var(--medical-focus-ring);
   }
 
   .input-field::placeholder {
-    color: #475569;
+    color: #94a3b8;
   }
 
   .section-header {
@@ -248,11 +332,15 @@
   .section-title {
     font-size: 16px;
     font-weight: 600;
-    color: #e2e8f0;
+    color: var(--medical-text);
   }
 
   .ai-badge {
-    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    background: linear-gradient(
+      135deg,
+      var(--medical-button),
+      var(--medical-blue-400)
+    );
     color: white;
     font-size: 10px;
     padding: 2px 8px;
