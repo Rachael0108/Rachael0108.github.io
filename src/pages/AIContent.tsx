@@ -227,7 +227,7 @@ export default function AIContent() {
                     options: [
                       "慢病管理期",
                       "术后康复期",
-                      "新患引导期",
+                      "新患引导期",-
                       "随访期",
                     ],
                   },
@@ -240,7 +240,7 @@ export default function AIContent() {
                       {item.label}
                     </label>
                     <select
-                      className="input-field text-xs"
+                      className="input-field text-xs px-2"
                       style={{ height: "34px" }}
                     >
                       {item.options.map((o) => (
@@ -259,7 +259,7 @@ export default function AIContent() {
                   生成提示词（Prompt）
                 </label>
                 <textarea
-                  className="input-field text-sm resize-none"
+                  className="input-field text-sm resize-none px-2 pt-2"
                   rows={3}
                   placeholder="例如：生成一篇适合高血压患者的夏季用药注意事项，语言温和专业，包含具体操作建议..."
                   value={prompt}
