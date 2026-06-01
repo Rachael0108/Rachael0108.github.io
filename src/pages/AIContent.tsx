@@ -197,7 +197,6 @@ export default function AIContent() {
 
       {activeTab === "generate" ? (
         <div className="grid grid-cols-3 gap-5">
-          {/* Left - Generator */}
           <div className="col-span-2 space-y-4">
             <div className="glass-card p-5">
               <div className="section-header">
@@ -206,7 +205,6 @@ export default function AIContent() {
                 <span className="ai-badge">大模型驱动</span>
               </div>
 
-              {/* Context Inputs */}
               <div className="grid grid-cols-3 gap-3 mb-4">
                 {[
                   {
@@ -227,8 +225,8 @@ export default function AIContent() {
                     options: [
                       "慢病管理期",
                       "术后康复期",
-                      "新患引导期",-
-                      "随访期",
+                      "新患引导期",
+                      -"随访期",
                     ],
                   },
                 ].map((item) => (
