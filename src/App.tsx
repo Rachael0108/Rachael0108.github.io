@@ -15,7 +15,9 @@ import AuditCompliance from "./pages/AuditCompliance";
 import SystemConfig from "./pages/SystemConfig";
 
 const ACCESS_PASSWORD =
-  (globalThis as { __APP_ACCESS_PASSWORD__?: string }).__APP_ACCESS_PASSWORD__ || "micare123456";
+  (globalThis as { __APP_ACCESS_PASSWORD__?: string })
+    .__APP_ACCESS_PASSWORD__ || "micare123456";
+const ACCESS_AUTH_STORAGE_KEY = "app_access_authorized";
 
 const pageComponents: Record<PageType, React.ComponentType> = {
   dashboard: Dashboard,
@@ -35,7 +37,9 @@ const pageComponents: Record<PageType, React.ComponentType> = {
 export default function App() {
   const [currentPage, setCurrentPage] = useState<PageType>("dashboard");
   const [passwordInput, setPasswordInput] = useState("");
-  const [isAuthorized, setIsAuthorized] = useState(false);
+  const [isAuthorized, setIsAuthorized] = useState(
+    () => localStorage.getItem(ACCESS_AUTH_STORAGE_KEY) === "1",
+  );
   const [authError, setAuthError] = useState("");
 
   const PageComponent = pageComponents[currentPage];
@@ -45,6 +49,7 @@ export default function App() {
 
     if (passwordInput === ACCESS_PASSWORD) {
       setIsAuthorized(true);
+      localStorage.setItem(ACCESS_AUTH_STORAGE_KEY, "1");
       setAuthError("");
       return;
     }
@@ -133,5 +138,3 @@ export default function App() {
     </div>
   );
 }
-
-
